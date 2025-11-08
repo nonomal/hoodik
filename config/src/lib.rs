@@ -51,4 +51,12 @@ impl Config {
         println!("-- RUST_LOG={:?}", std::env::var("RUST_LOG").ok());
         println!("------------------------------------------");
     }
+
+    /// Emit any warnings collected during configuration initialization.
+    /// Call this after env_logger::init() to ensure warnings are visible.
+    pub fn emit_warnings(&self) {
+        for warning in &self.warnings {
+            log::warn!("{}", warning);
+        }
+    }
 }
